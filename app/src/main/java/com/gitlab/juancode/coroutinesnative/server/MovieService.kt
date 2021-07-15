@@ -9,6 +9,5 @@ interface MovieService {
     @GET("discover/movie")
     fun listPopularMovies(
         @Query("api_key") apiKey: String,
-        @Query("region") region: String = "es"
     ): Call<MovieResult>
 }
