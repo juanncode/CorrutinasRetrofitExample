@@ -5,10 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.gitlab.juancode.coroutinesnative.databinding.ActivityMainBinding
 import com.gitlab.juancode.coroutinesnative.server.MovieClient
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -24,11 +21,8 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             val apiKey = getString(R.string.api_key)
             val listPopularMovies = MovieClient.service.listPopularMovies(apiKey)
-            val body = withContext(Dispatchers.IO) { listPopularMovies.execute().body() }
-            if (body != null) {
-                adapter.movies = body.results
-                adapter.notifyDataSetChanged()
-            }
+            adapter.movies = listPopularMovies.results
+            adapter.notifyDataSetChanged()
         }
     }
 }

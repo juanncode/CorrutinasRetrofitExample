@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface MovieService {
     @GET("discover/movie")
-    fun listPopularMovies(
+    suspend fun listPopularMovies(
         @Query("api_key") apiKey: String,
-    ): Call<MovieResult>
+    ): MovieResult
 }
